@@ -1,0 +1,105 @@
+"""Import the libraries"""
+> import...
+warnings.filterwarnings("ignore")
+
+"""Input Data Read"""
+data= pd.read_csv('creditcard_1.csv')
+data.head()
+data.info()
+
+"""Preprocessing"""
+
+"""Checking missing values in the data"""
+print()
+print("Checking Missing Values")
+print(data.isnull().sum())
+data.describe()
+
+"""Data visualization"""
+"""number of fraud and valid transactions "**
+
+count_classes = pd.value_counts (data['Class'], sort = True)
+count_classes.plot(kind = 'bar', rot=0) 
+plt.title("Transaction Distribution")
+plt.xlabel("class")
+plt.ylabel("Frequency");
+
+
+"""Assigning the transaction class "0 = NORMAL & 1 = FRAUD"""
+
+Normal = data[data['Class']==0]
+fp = lgbm_cm[0][1]
+fn=lgbm_cm[1][0]
+tp = lgbm_cm [1][1]
+Total TP_FP=1gbm_cm[0][0]+1gbm_cm[0][1] 
+Total FN_TN=1gbm_cm [1][0]+1gbm_cm[1][1] 
+specificity = tn / (tn+fp)
+lgbm_specificity=format (specificity, '.3f')
+print('RF_specificity:',lgbm_specificity)
+print()
+
+plt.figure()
+sns.heatmap(confusion_matrix(y_test, lgbm_pred), annot = True)
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("True")
+plt.show()
+
+
+***RANDOM FOREST'''
+
+rf_clf-RandomForestClassifier (n_estimators=10)
+rf_clf.fit(X_train, y_train)
+
+rf_ypred=rf_clf.predict(X_test)
+print('\n')
+print("Accuracy------")
+rf-accuracy_score (y_test, rf_ypred)*100
+RF=('RANDOM FOREST Accuracy:', accuracy_score (y_test, rf_ypred)*100, '%')
+print (RF)
+import joblib
+joblib.dump(rf_clf, "rf.pkl")
+print('\n')
+print("Classification Report") 
+print(classification_report (rf_ypred, y_test))
+print('\n')
+print('Confusion_matrix')
+rf_cm = confusion_matrix(y_test, rf_ypred)
+print(rf_cm)
+print('\n')
+tn = rf_cm[0][0]
+fp = rf_cm[0][1]
+fn = rf_cm[1][0]
+tp = rf_cm[1][1]
+Total_TP_FP=rf_cm[0][0]+rf_cm[0][1]
+Total FN_TN=rf_cm[1][0]+rf_cm[1][1] 
+specificity tn / (tn+fp)
+rf_specificity=format (specificity, '.3f')
+sensitivity tp / (fn + tp)
+rf_sensitivity=format (sensitivity, '.3f')
+print('RF_specificity:',rf_specificity)
+print('\n')
+
+
+plt.figure()
+sns.heatmap(confusion_matrix (y_test, rf_ypred), annot = True)
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("True")
+plt.show()
+
+
+#comparision
+vals=[lgbm_,rf]
+inds range(len(vals))
+labels=["LGBM","RF"]
+fig, ax = plt.subplots()
+rects = ax.bar(inds, vals)
+ax.set_xticks([ind for ind in inds])
+ax.set_xticklabels (labels)
+plt.show()
+
+
+
+
+

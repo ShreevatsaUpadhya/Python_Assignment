@@ -1,0 +1,59 @@
+"""Import the libraries"""
+> import...
+warnings.filterwarnings("ignore")
+
+ """Input Data Read"""
+data.head()
+data= pd.read_csv('creditcard_1.csv')
+data.info()
+
+"""Preprocessing"""
+
+"""Checking missing values in the data"""
+print()
+print("Checking Missing Values")
+print(data.isnull().sum())
+data.describe()
+
+"""Data visualization"""
+"""number of fraud and valid transactions "**
+
+count_classes = pd.value_counts (data['Class'], sort = True)
+count_classes.plot(kind = 'bar', rot=0) plt.title("Transaction Distribution")
+plt.xlabel("class")
+plt.ylabel("Frequency");
+
+
+"""Assigning the transaction class "0 = NORMAL & 1 = FRAUD"""
+
+Normal = data[data['Class']==0]
+Fraud = data[data['Class']==1]
+print()
+print("Outlier Fraction:", len (Fraud)/float(len (Normal)))
+print()
+print("Fraud Cases: {}".format(len(Fraud)))
+print("Valid Cases: {}".format(len(Normal)))
+
+
+"""Splitting train and test data"""
+X = data.iloc[:,:-1]
+y = data.iloc[:, -1]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 0)
+
+
+"""LGBM Classifier"""
+
+lgbm =LGBMClassifier()
+lgbm.fit(X_train, y_train)
+
+lgbm_pred=lgbm.predict(X_test)
+print('\n')
+print("------Accuracy------")
+lgbm_=accuracy_score (y_test, lgbm_pred)*100
+LGBM=('Light Gradient Boosting Accuracy is:',lgbm__, '%')
+print (LGBM)
+print('\n')
+print("------Classification Report------")
+print(classification_report(lgbm_pred,y_test))
+print('\n')
